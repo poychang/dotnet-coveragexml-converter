@@ -1,0 +1,14 @@
+language: csharp
+mono: none
+os: linux
+dotnet: 5.0
+script:
+    - dotnet build ./dotnet-coveragexml-converter --configuration Release
+    - dotnet pack ./dotnet-coveragexml-converter --configuration Release
+deploy:
+    - provider: script
+      skip_cleanup: true
+      script: dotnet nuget push ./dotnet-coveragexml-converter/bin/Release/dotnet-coveragexml-converter.*.nupkg --api-key $NUGET_API_KEY --source nuget.org
+      on:
+          tags: true
+          branch: main

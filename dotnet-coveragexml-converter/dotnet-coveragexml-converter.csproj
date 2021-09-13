@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>CoverageXmlConverter</RootNamespace>
+        <Version>0.1.0</Version>
+        <OutputType>Exe</OutputType>
+        <PackAsTool>true</PackAsTool>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <ToolCommandName>dotnet-coveragexml-converter</ToolCommandName>
+        <Description>Convert .coverage (binary format) to .coveragexml (xml format)</Description>
+        <PackageTags>Code Coverage Converter;.coverage;.coveragexml;SonarQube</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeCoverage" Version="16.11.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Microsoft.CodeCoverage\*.*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+</Project>
