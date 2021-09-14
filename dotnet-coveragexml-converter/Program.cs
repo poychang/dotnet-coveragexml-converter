@@ -15,26 +15,19 @@ namespace CoverageXmlConverter
         {
             var rootCommand = new RootCommand
             {
-                new Option<string>(new[]{ "-f", "--coverage-files-folder" }, "The folder contain the .coverage files.") { IsRequired = true },
-                new Option<bool>(new[]{ "-a", "--all-directories" }, () => true, "Includes subfolders for search operation."),
-                new Option<bool>(new[]{ "-p", "--process-all-files" }, () => false, "Convert all .coverage files. Default is false, only convert the folders which are a guid (that's the one VSTest creates)."),
+                new Option<string>(new[]{ "-f", "--coverage-files-folder" }, "The folder contain the .coverage files.") { IsRequired = true, ArgumentHelpName = "FOLDER_PATH"},
+                new Option<bool>(new[]{ "-a", "--all-directories" }, () => true, "Includes sub-folders for search operation."),
+                new Option<bool>(new[]{ "-p", "--process-all-files" }, () => false, "Convert all .coverage files. Default only convert the folders which are GUID (create by VSTest)."),
                 new Option<bool>(new[]{ "-o", "--overwrite" }, () => true, "Overwrite the existing .coveragexml files."),
                 new Option<bool>(new[]{ "-r", "--remove-original-files" }, "Remove the original .coverage files."),
             };
 
-            rootCommand.Description = "dotnet-coveragexml-converter can be used to convert coverage files from `.coverage` (binary format) files to `.coveragexml` (xml format) files.";
+            rootCommand.Description = "Convert coverage files from '.coverage' binary files to '.coveragexml' xml files.";
 
             // Note that the parameters of the handler method are matched according to the names of the options
             rootCommand.Handler = CommandHandler.Create<string, bool, bool, bool, bool>(
                 (coverageFilesFolder, allDirectories, processAllFiles, overwrite, removeOriginalFiles) =>
                 {
-                    Logger.LogInformation($"--coverage-files-folder is required\n" +
-                                          $"--coverage-files-folder is: {coverageFilesFolder}\n" +
-                                          $"--all-directories is: {allDirectories}\n" + 
-                                          $"--process-all-files is: {processAllFiles}\n" + 
-                                          $"--overwrite is: {overwrite}\n" +
-                                          $"--remove-original-coverage-files is: {removeOriginalFiles}");
-
                     try
                     {
                         var coverageFiles = FindCoverageFiles(coverageFilesFolder, allDirectories, processAllFiles);
@@ -90,7 +83,7 @@ namespace CoverageXmlConverter
             }
             catch (Exception ex)
             {
-                Logger.LogCritical(ex, $"Can not delete existing file '{destinationFilePath}'.");
+                Logger.LogCritical(ex, $"Unable to delete existing file '{destinationFilePath}'.");
             }
         }
 
@@ -116,7 +109,7 @@ namespace CoverageXmlConverter
             }
             catch (Exception ex)
             {
-                Logger.LogCritical(ex, $"Can not delete original file '{sourceFilePath}'.");
+                Logger.LogCritical(ex, $"Unable to delete original file '{sourceFilePath}'.");
             }
         }
     }

@@ -3,7 +3,7 @@
 [![Build Status](https://app.travis-ci.com/poychang/dotnet-coveragexml-converter.svg?branch=main)](https://app.travis-ci.com/github/poychang/dotnet-coveragexml-converter)
 [![NuGet version](https://badge.fury.io/nu/dotnet-coveragexml-converter.svg)](https://badge.fury.io/nu/dotnet-coveragexml-converter)
 
-This dotnet tool can be used to convert coverage files from `.coverage` (binary format) files to `.coveragexml` (xml format) files.
+This dotnet tool can be used to convert coverage files from `.coverage` binary files to `.coveragexml` xml files.
 
 ## Installation
 
@@ -38,17 +38,17 @@ dotnet test ./projects/test.csproj --collect "Code Coverage"
 
 On any platform that is supported by .NET Core, install [Coverlet](https://github.com/coverlet-coverage/coverlet/) and use the `--collect:"XPlat Code Coverage"` option.
 
-Using `dotnet-coveragexml-converter` dotnet tool to convert `.coverage` to `.coveragexml`. It required `--CoverageFilesFolder` parameter to specify the folder that contains `.coverage` files. Examples are as follows:
+Using `dotnet-coveragexml-converter` dotnet tool to convert `.coverage` to `.coveragexml`. It required `--coverage-files-folder` parameter to specify the folder that contains `.coverage` files. Examples are as follows:
 
 ```cmd
-dotnet-coveragexml-converter --CoverageFilesFolder ".\TestResults"
+dotnet-coveragexml-converter --coverage-files-folder ".\TestResults"
 ```
 
 ### Easy Steps
 
-1. `dotnet test .\projects\test.csproj --collect "Code Coverage"` generate `.coverage` files.
-2. `dotnet tool install --global dotnet-coveragexml-converter'` install the dotnet tool.
-3. `dotnet-coveragexml-converter --CoverageFilesFolder ".\TestResults"` convert `.coverage` to `.coveragexml`
+1. `dotnet test .\projects\test.csproj --collect "Code Coverage"` generate `.coverage` files
+2. `dotnet tool install --global dotnet-coveragexml-converter'` install the dotnet tool
+3. `dotnet-coveragexml-converter --coverage-files-folder ".\TestResults"` convert `.coverage` files in `TestResults` folder to `.coveragexml` format
 
 ### Example YAML pipeline tasks
 
@@ -58,7 +58,7 @@ dotnet-coveragexml-converter --CoverageFilesFolder ".\TestResults"
   inputs:
     script: |
      dotnet tool install --global dotnet-coveragexml-converter
-     dotnet-coveragexml-converter --CoverageFilesFolder "$(Agent.TempDirectory)\TestResults"
+     dotnet-coveragexml-converter --coverage-files-folder "$(Agent.TempDirectory)\TestResults"
 ```
 
 ## Help
@@ -67,15 +67,15 @@ dotnet-coveragexml-converter --CoverageFilesFolder ".\TestResults"
 
 ```
 dotnet-coveragexml-converter
-  dotnet-coveragexml-converter can be used to convert coverage files from `.coverage` (binary format) files to `.coveragexml` (xml format) files.
+  Convert coverage files from '.coverage' binary files to '.coveragexml' xml files.
 
 Usage:
   dotnet-coveragexml-converter [options]
 
 Options:
   -f, --coverage-files-folder <coverage-files-folder> (REQUIRED)  The folder contain the .coverage files.
-  -a, --all-directories                                           Includes subfolders for search operation. [default: True]
-  -p, --process-all-files                                         Convert all .coverage files. Default is false, only convert the folders which are a guid (that's the one VSTest creates). [default: False]
+  -a, --all-directories                                           Includes sub-folders for search operation. [default: True]
+  -p, --process-all-files                                         Convert all .coverage files. Default only convert the folders which are GUID (create by VSTest). [default: False]
   -o, --overwrite                                                 Overwrite the existing .coveragexml files. [default: True]
   -r, --remove-original-files                                     Remove the original .coverage files.
   --version                                                       Show version information

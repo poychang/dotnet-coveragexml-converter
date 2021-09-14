@@ -1,15 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
         <RootNamespace>CoverageXmlConverter</RootNamespace>
-        <Version>0.1.0</Version>
-        <OutputType>Exe</OutputType>
+        <Authors>Poy Chang</Authors>
+        <Version>1.0.0</Version>
         <PackAsTool>true</PackAsTool>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <ToolCommandName>dotnet-coveragexml-converter</ToolCommandName>
-        <Description>Convert .coverage (binary format) to .coveragexml (xml format)</Description>
+        <PackageDescription>Convert coverage files from '.coverage' binary files to '.coveragexml' xml files.</PackageDescription>
         <PackageTags>Code Coverage Converter;.coverage;.coveragexml;SonarQube</PackageTags>
+        <PackageProjectUrl>https://github.com/poychang/dotnet-coveragexml-converter</PackageProjectUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
